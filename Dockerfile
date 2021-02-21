@@ -28,4 +28,4 @@ RUN apt-get install -y libvulkan1
 
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "notepad" ]
+CMD [ "wine64", "notepad" ]
