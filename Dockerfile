@@ -46,14 +46,26 @@ RUN WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
 
 RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/
 
-RUN mkdir -p /tmp/.X11-unix && \
-    chmod 1777 /tmp/.X11-unix && \
-    gosu user bash -c 'Xvfb :99 -screen 0 1024x768x16 &' && \
-    DISPLAY=:99.0 WINEPREFIX=/wine gosu user wine cmd /c \
+#RUN apt-get install -y xdotool
+#DISPLAY=:50.0 xdotool search --name 'Python' windowfocus --sync %1 && \
+
+RUN gosu user Xvfb :50 -screen 0 1024x768x16 & \
+    bash -c 'while [ ! -f /tmp/.X50-lock ]; do sleep 1; done' && \
+    DISPLAY=:50.0 WINEPREFIX=/wine gosu user wine cmd /c \
         /tmp/python-3.8.9-amd64.exe \
         /quiet \
         PrependPath=1
 
+
+#RUN mkdir -p /tmp/.X11-unix && \
+#   chmod 1777 /tmp/.X11-unix && \
+#RUN WINEPREFIX=/wine gosu user xvfb-run wine /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1
+#    gosu user bash -c \
+#    'Xvfb :50 -screen 0 1024x768x16 & \
+#    DISPLAY=:50.0 WINEPREFIX=/wine wine cmd /c \
+#        /tmp/python-3.8.9-amd64.exe \
+#        /quiet \
+#        PrependPath=1'
 
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
