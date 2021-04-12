@@ -49,12 +49,14 @@ RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/
 #RUN apt-get install -y xdotool
 #DISPLAY=:50.0 xdotool search --name 'Python' windowfocus --sync %1 && \
 
-RUN gosu user Xvfb :50 -screen 0 1024x768x16 & \
+RUN WINEPREFIX=/wine gosu user xvfb-run -a wineboot && sleep 5 && \
+    gosu user Xvfb :50 -ac -screen 0 1024x768x24 & \
     bash -c 'while [ ! -f /tmp/.X50-lock ]; do sleep 1; done' && \
     DISPLAY=:50.0 WINEPREFIX=/wine gosu user wine cmd /c \
         /tmp/python-3.8.9-amd64.exe \
         /quiet \
-        PrependPath=1
+        PrependPath=1 && \
+    sleep 5
 
 
 #RUN mkdir -p /tmp/.X11-unix && \
