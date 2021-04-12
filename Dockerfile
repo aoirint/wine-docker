@@ -46,17 +46,23 @@ RUN WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
 
 RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/
 
+
+#RUN wineboot && winetricks -q --force dotnet472
+#RUN wineboot -u && xvfb-run winetricks -q vcrun2010 
+
+RUN WINEPREFIX=/wine gosu user xvfb-run sh -c 'wineboot && wine64 /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1; wineserver -w'
+
 #RUN apt-get install -y xdotool
 #DISPLAY=:50.0 xdotool search --name 'Python' windowfocus --sync %1 && \
 
-RUN WINEPREFIX=/wine gosu user xvfb-run -a wineboot && sleep 5 && \
-    gosu user Xvfb :50 -ac -screen 0 1024x768x24 & \
-    bash -c 'while [ ! -f /tmp/.X50-lock ]; do sleep 1; done' && \
-    DISPLAY=:50.0 WINEPREFIX=/wine gosu user wine cmd /c \
-        /tmp/python-3.8.9-amd64.exe \
-        /quiet \
-        PrependPath=1 && \
-    sleep 5
+#RUN WINEPREFIX=/wine gosu user xvfb-run -a wineboot && sleep 5 && \
+#    gosu user Xvfb :50 -ac -screen 0 1024x768x24 & \
+#    bash -c 'while [ ! -f /tmp/.X50-lock ]; do sleep 1; done' && \
+#    DISPLAY=:50.0 WINEPREFIX=/wine gosu user wine cmd /c \
+#        /tmp/python-3.8.9-amd64.exe \
+#        /quiet \
+#        PrependPath=1 && \
+#    sleep 5
 
 
 #RUN mkdir -p /tmp/.X11-unix && \
