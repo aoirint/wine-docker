@@ -32,15 +32,12 @@ RUN apt-get install -y \
         xvfb \
         cabextract
 
+# Install Python
 RUN useradd -m user && \
-    mkdir -p /wine && \
-    chown -R "user:user" /wine
-
-RUN WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
+    WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
         corefonts \
-        win10
-
-RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/
+        win10 && \
+    wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/ && \
     WINEPREFIX=/wine \
     gosu user xvfb-run \
     sh -c 'wineboot && wine /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1; wineserver -w' && \
