@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=ubuntu:bionic
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS ubuntu-base
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -26,13 +26,32 @@ RUN apt-get install -y software-properties-common && \
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -P /usr/local/bin/ && \
     chmod +x /usr/local/bin/winetricks
 
+RUN apt-get install -y \
+        gosu \
+        libvulkan1 && \
+    useradd -m user
 
-RUN apt-get install -y gosu
+ENTRYPOINT [ "gosu", "user" ]
+CMD [ "wine", "notepad" ]
 
-RUN apt-get install -y libvulkan1
 
-RUN apt-get install -y xvfb
 
-ADD ./docker-entrypoint.sh /docker-entrypoint.sh
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "wine64", "notepad" ]
+# Install Python
+FROM ubuntu-base AS python
+ARG DEBIAN_FRONTEND=noninteractive
+ARG PYTHON_VERSION=3.8.9
+
+RUN apt-get install -y \
+        xvfb \
+        cabextract
+
+RUN WINARCH=win64 gosu user winetricks \
+        corefonts \
+        win10 && \
+    wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}-amd64.exe -O /tmp/install-python.exe && \
+    gosu user xvfb-run \
+    sh -c 'wineboot && wine /tmp/install-python.exe /quiet PrependPath=1; wineserver -w' && \
+    rm /tmp/install-python.exe
+
+CMD [ "wine", "python" ]
+
