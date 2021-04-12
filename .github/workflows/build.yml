@@ -1,12 +1,9 @@
-name: Push to Docker registry
+name: Build
 
-on:
-  push:
-    branches:    
-      - master
+on: push
 
 jobs:
-  deploy-latest:
+  build-latest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,14 +18,8 @@ jobs:
       - name: Build :latest
         if: success()
         run: make build
-
-      - name: Deploy :latest
-        if: success()
-        uses: actions-hub/docker@master
-        with:
-          args: push aoirint/wine:latest
   
-  deploy-ubuntu:
+  build-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -44,13 +35,7 @@ jobs:
         if: success()
         run: make build-ubuntu
 
-      - name: Deploy :ubuntu
-        if: success()
-        uses: actions-hub/docker@master
-        with:
-          args: push aoirint/wine:ubuntu
-
-  deploy-nvidia:
+  build-nvidia:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -66,14 +51,8 @@ jobs:
         if: success()
         run: make build-nvidia
 
-      - name: Deploy :nvidia
-        if: success()
-        uses: actions-hub/docker@master
-        with:
-          args: push aoirint/wine:nvidia
-
   
-  deploy-ubuntu-py38:
+  build-ubuntu-py38:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -89,13 +68,7 @@ jobs:
         if: success()
         run: make build-ubuntu-py38
 
-      - name: Deploy :ubuntu-py38
-        if: success()
-        uses: actions-hub/docker@master
-        with:
-          args: push aoirint/wine:ubuntu-py38
-
-  deploy-nvidia-py38:
+  build-nvidia-py38:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -110,10 +83,4 @@ jobs:
       - name: Build :nvidia-py38
         if: success()
         run: make build-nvidia-py38
-
-      - name: Deploy :nvidia-py38
-        if: success()
-        uses: actions-hub/docker@master
-        with:
-          args: push aoirint/wine:nvidia-py38
 
