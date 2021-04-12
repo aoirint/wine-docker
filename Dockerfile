@@ -34,11 +34,10 @@ RUN apt-get install -y \
 
 # Install Python
 RUN useradd -m user && \
-    WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
+    WINARCH=win64 gosu user winetricks \
         corefonts \
         win10 && \
     wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/ && \
-    WINEPREFIX=/wine \
     gosu user xvfb-run \
     sh -c 'wineboot && wine /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1; wineserver -w' && \
     rm /tmp/python-3.8.9-amd64.exe
