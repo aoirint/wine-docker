@@ -27,6 +27,28 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:latest
+  
+  deploy-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu
+        if: success()
+        run: make build-ubuntu
+
+      - name: Deploy :ubuntu
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu
 
   deploy-nvidia:
     runs-on: ubuntu-latest
@@ -49,3 +71,49 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:nvidia
+
+  
+  deploy-ubuntu-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu-py38
+        if: success()
+        run: make build-ubuntu-py38
+
+      - name: Deploy :ubuntu-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-py38
+
+  deploy-nvidia-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :nvidia-py38
+        if: success()
+        run: make build-nvidia-py38
+
+      - name: Deploy :nvidia-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-py38
+
