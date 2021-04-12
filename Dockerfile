@@ -31,7 +31,21 @@ RUN apt-get install -y gosu
 
 RUN apt-get install -y libvulkan1
 
+
+# https://askubuntu.com/questions/678277/how-to-install-python3-in-wine
 RUN apt-get install -y xvfb
+
+RUN WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
+        corefonts \
+        win10
+
+RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/ && \
+    gosu user Xvfb :0 -screen 0 1024x768x16 & && \
+    DISPLAY=:0.0 WINEPREFIX=/wine gosu user wine cmd /c \
+        /tmp/python-3.8.9-amd64.exe \
+        /quiet \
+        PrependPath=1
+
 
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]

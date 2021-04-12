@@ -13,7 +13,6 @@ run: build
 		-e "HOST_UID=$(shell id -u)" \
 		-e "HOST_GID=$(shell id -g)" \
 		-e DISPLAY \
-		-e "WINEPREFIX=/wine" \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-v "${PWD}/wine:/wine" \
 		aoirint/wine:latest
@@ -26,7 +25,6 @@ run-nvidia: build-nvidia
 		-e "HOST_UID=$(shell id -u)" \
 		-e "HOST_GID=$(shell id -g)" \
 		-e DISPLAY \
-		-e "WINEPREFIX=/wine" \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-v "${PWD}/wine:/wine" \
 		aoirint/wine:nvidia
