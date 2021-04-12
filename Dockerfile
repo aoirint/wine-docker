@@ -22,9 +22,16 @@ RUN apt-get install -y software-properties-common && \
     apt-get install -y \
         winehq-stable
 
+# Install Winetricks
+RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -P /usr/local/bin/ && \
+    chmod +x /usr/local/bin/winetricks
+
+
 RUN apt-get install -y gosu
 
 RUN apt-get install -y libvulkan1
+
+RUN apt-get install -y xvfb
 
 ADD ./docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
