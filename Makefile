@@ -23,3 +23,5 @@ run-nvidia: build-nvidia
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		aoirint/wine:nvidia
 
+# Use WINEPREFIX=/wine wine python
+

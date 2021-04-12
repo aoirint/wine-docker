@@ -31,8 +31,6 @@ RUN apt-get install -y gosu
 
 RUN apt-get install -y libvulkan1
 
-
-# https://askubuntu.com/questions/678277/how-to-install-python3-in-wine
 RUN apt-get install -y xvfb
 RUN apt-get install -y cabextract
 
@@ -46,7 +44,9 @@ RUN WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
 
 RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/
 
-RUN WINEPREFIX=/wine gosu user xvfb-run sh -c 'wineboot && wine64 /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1; wineserver -w'
+RUN WINEPREFIX=/wine \
+    gosu user xvfb-run \
+    sh -c 'wineboot && wine /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1; wineserver -w'
 
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine64", "notepad" ]
