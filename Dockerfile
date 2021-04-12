@@ -44,9 +44,12 @@ RUN WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
         corefonts \
         win10
 
-RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/ && \
-    gosu user bash -c 'Xvfb :0 -screen 0 1024x768x16 &' && \
-    DISPLAY=:0.0 WINEPREFIX=/wine gosu user wine cmd /c \
+RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/
+
+RUN mkdir -p /tmp/.X11-unix && \
+    chmod 1777 /tmp/.X11-unix && \
+    gosu user bash -c 'Xvfb :99 -screen 0 1024x768x16 &' && \
+    DISPLAY=:99.0 WINEPREFIX=/wine gosu user wine cmd /c \
         /tmp/python-3.8.9-amd64.exe \
         /quiet \
         PrependPath=1
