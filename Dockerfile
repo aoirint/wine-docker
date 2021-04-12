@@ -26,13 +26,11 @@ RUN apt-get install -y software-properties-common && \
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -P /usr/local/bin/ && \
     chmod +x /usr/local/bin/winetricks
 
-
-RUN apt-get install -y gosu
-
-RUN apt-get install -y libvulkan1
-
-RUN apt-get install -y xvfb
-RUN apt-get install -y cabextract
+RUN apt-get install -y \
+        gosu \
+        libvulkan1 \
+        xvfb \
+        cabextract
 
 RUN useradd -m user && \
     mkdir -p /wine && \
@@ -43,10 +41,10 @@ RUN WINEPREFIX=/wine WINARCH=win64 gosu user winetricks \
         win10
 
 RUN wget https://www.python.org/ftp/python/3.8.9/python-3.8.9-amd64.exe -P /tmp/
-
-RUN WINEPREFIX=/wine \
+    WINEPREFIX=/wine \
     gosu user xvfb-run \
-    sh -c 'wineboot && wine /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1; wineserver -w'
+    sh -c 'wineboot && wine /tmp/python-3.8.9-amd64.exe /quiet PrependPath=1; wineserver -w' && \
+    rm /tmp/python-3.8.9-amd64.exe
 
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine64", "notepad" ]
