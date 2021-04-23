@@ -31,6 +31,12 @@ RUN apt-get install -y \
         libvulkan1 && \
     useradd -m user
 
+RUN WINARCH=win64 gosu user winetricks \
+        allfonts \
+        corefonts \
+        win10 \
+        fakejapanese_ipamona
+
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
 
@@ -45,10 +51,7 @@ RUN apt-get install -y \
         xvfb \
         cabextract
 
-RUN WINARCH=win64 gosu user winetricks \
-        corefonts \
-        win10 && \
-    wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}-amd64.exe -O /tmp/install-python.exe && \
+RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}-amd64.exe -O /tmp/install-python.exe && \
     gosu user xvfb-run \
     sh -c 'wineboot && wine /tmp/install-python.exe /quiet PrependPath=1; wineserver -w' && \
     rm /tmp/install-python.exe
