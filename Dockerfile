@@ -28,7 +28,10 @@ RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/wine
 
 RUN apt-get install -y \
         gosu \
-        libvulkan1 && \
+        libvulkan1 \
+        binutils \
+        cabextract \
+        xvfb && \
     useradd -m user
 
 RUN WINARCH=win64 gosu user winetricks \
@@ -46,10 +49,6 @@ CMD [ "wine", "notepad" ]
 FROM ubuntu-base AS python
 ARG DEBIAN_FRONTEND=noninteractive
 ARG PYTHON_VERSION=3.8.9
-
-RUN apt-get install -y \
-        xvfb \
-        cabextract
 
 RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}-amd64.exe -O /tmp/install-python.exe && \
     gosu user xvfb-run \
