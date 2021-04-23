@@ -31,6 +31,7 @@ RUN apt-get install -y \
         libvulkan1 \
         binutils \
         cabextract \
+        unzip \
         xvfb && \
     useradd -m user
 
