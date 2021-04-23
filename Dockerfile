@@ -16,7 +16,7 @@ RUN dpkg --add-architecture i386 && \
     rm /tmp/faudio_x86.deb /tmp/faudio_x64.deb
 
 # Install Wine HQ
-RUN apt-get install -y software-properties-common && \
+RUN apt-get update && apt-get install -y software-properties-common && \
     wget -nc https://dl.winehq.org/wine-builds/winehq.key -O - | apt-key add && \
     add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' && \
     apt-get install -y \
@@ -26,21 +26,28 @@ RUN apt-get install -y software-properties-common && \
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -P /usr/local/bin/ && \
     chmod +x /usr/local/bin/winetricks
 
-RUN apt-get install -y \
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \
+        apt-get update && apt-get install -y \
         gosu \
         libvulkan1 \
         binutils \
         cabextract \
         unzip \
+        lsof \
+        language-pack-ja \
+        fontconfig  \
+        fonts-noto-cjk \
+        ttf-mscorefonts-installer \
         xvfb && \
-    useradd -m user
+    fc-cache -fv && \
+    useradd -m user && \
+    update-locale LANG=ja_JP.UTF-8
 
 RUN WINARCH=win64 gosu user winetricks \
         allfonts \
-        corefonts \
-        win10 \
-        fakejapanese_ipamona
-
+        fakejapanese \
+        win10
+    
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
 
