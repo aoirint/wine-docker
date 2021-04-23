@@ -27,6 +27,7 @@ build-nvidia-py38:
 .PHONY: run
 run: build
 	docker run --rm \
+	        -e LANG=ja_JP.UTF-8 \
 		-e DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		aoirint/wine:latest
@@ -34,6 +35,7 @@ run: build
 .PHONY: run-ubuntu
 run-ubuntu: build-ubuntu
 	docker run --rm \
+	        -e LANG=ja_JP.UTF-8 \
 		-e DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		aoirint/wine:ubuntu
@@ -42,6 +44,7 @@ run-ubuntu: build-ubuntu
 run-nvidia: build-nvidia
 	docker run --rm \
 		--gpus all \
+	        -e LANG=ja_JP.UTF-8 \
 		-e DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		aoirint/wine:nvidia
@@ -50,6 +53,7 @@ run-nvidia: build-nvidia
 .PHONY: run-ubuntu-py38
 run-ubuntu-py38: build-ubuntu-py38
 	docker run --rm \
+	        -e LANG=ja_JP.UTF-8 \
 		-e DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		aoirint/wine:ubuntu-py38
@@ -58,6 +62,7 @@ run-ubuntu-py38: build-ubuntu-py38
 run-nvidia-py38: build-nvidia-py38
 	docker run --rm \
 		--gpus all \
+	        -e LANG=ja_JP.UTF-8 \
 		-e DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		aoirint/wine:nvidia-py38
