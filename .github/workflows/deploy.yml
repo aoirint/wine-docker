@@ -157,7 +157,7 @@ jobs:
         if: success()
         run: make build-nvidia-devel
 
-      - name: Deploy :nvidia
+      - name: Deploy :nvidia-devel
         if: success()
         uses: actions-hub/docker@master
         with:
@@ -176,11 +176,11 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_REGISTRY_URL: docker.io
 
-      - name: Build :ubuntu-py38
+      - name: Build :ubuntu-devel-py38
         if: success()
         run: make build-ubuntu-devel-py38
 
-      - name: Deploy :ubuntu-py38
+      - name: Deploy :ubuntu-devel-py38
         if: success()
         uses: actions-hub/docker@master
         with:
@@ -202,7 +202,7 @@ jobs:
         if: success()
         run: make build-nvidia-devel-py38
 
-      - name: Deploy :nvidia-py38
+      - name: Deploy :nvidia-devel-py38
         if: success()
         uses: actions-hub/docker@master
         with:
