@@ -3,6 +3,7 @@ FROM ${BASE_IMAGE} AS ubuntu-base
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG WINE_BRANCH=stable
+ARG WINEARCH=win64
 
 ARG FAUDIO_X86=https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/i386/libfaudio0_19.07-0~bionic_i386.deb
 ARG FAUDIO_X64=https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/amd64/libfaudio0_19.07-0~bionic_amd64.deb
@@ -44,7 +45,7 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula selec
     useradd -m user && \
     update-locale LANG=ja_JP.UTF-8
 
-RUN WINARCH=win64 gosu user winetricks \
+RUN gosu user winetricks \
         allfonts \
         fakejapanese \
         win10
@@ -57,6 +58,7 @@ CMD [ "wine", "notepad" ]
 # Install Python
 FROM ubuntu-base AS python
 ARG DEBIAN_FRONTEND=noninteractive
+ARG WINEARCH=win64
 ARG PYTHON_VERSION=3.8.9
 
 RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}-amd64.exe -O /tmp/install-python.exe && \
