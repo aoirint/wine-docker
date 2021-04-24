@@ -2,6 +2,7 @@ ARG BASE_IMAGE=ubuntu:bionic
 FROM ${BASE_IMAGE} AS ubuntu-base
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG WINE_BRANCH=stable
 
 ARG FAUDIO_X86=https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/i386/libfaudio0_19.07-0~bionic_i386.deb
 ARG FAUDIO_X64=https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/amd64/libfaudio0_19.07-0~bionic_amd64.deb
@@ -20,7 +21,7 @@ RUN apt-get update && apt-get install -y software-properties-common && \
     wget -nc https://dl.winehq.org/wine-builds/winehq.key -O - | apt-key add && \
     add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' && \
     apt-get install -y \
-        winehq-stable
+        winehq-${WINE_BRANCH}
 
 # Install Winetricks
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -P /usr/local/bin/ && \
