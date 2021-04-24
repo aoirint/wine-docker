@@ -2,10 +2,11 @@ name: Push to Docker registry
 
 on:
   push:
-    branches:    
+    branches:
       - master
 
 jobs:
+  # Stable branch
   deploy-latest:
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +28,7 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:latest
-  
+
   deploy-ubuntu:
     runs-on: ubuntu-latest
     steps:
@@ -72,7 +73,7 @@ jobs:
         with:
           args: push aoirint/wine:nvidia
 
-  
+
   deploy-ubuntu-py38:
     runs-on: ubuntu-latest
     steps:
@@ -117,3 +118,92 @@ jobs:
         with:
           args: push aoirint/wine:nvidia-py38
 
+  # Development branch
+  deploy-ubuntu-devel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu-devel
+        if: success()
+        run: make build-ubuntu-devel
+
+      - name: Deploy :ubuntu-devel
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel
+
+  deploy-nvidia-devel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :nvidia-devel
+        if: success()
+        run: make build-nvidia-devel
+
+      - name: Deploy :nvidia
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel
+
+
+  deploy-ubuntu-devel-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu-py38
+        if: success()
+        run: make build-ubuntu-devel-py38
+
+      - name: Deploy :ubuntu-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel-py38
+
+  deploy-nvidia-devel-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :nvidia-devel-py38
+        if: success()
+        run: make build-nvidia-devel-py38
+
+      - name: Deploy :nvidia-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel-py38
