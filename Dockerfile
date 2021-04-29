@@ -48,7 +48,13 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula selec
 RUN gosu user winetricks \
         allfonts \
         fakejapanese \
-        win10
+        win10 \
+        dotnet472 \
+        msxml6 \
+        mfc40
+
+RUN gosu user xvfb-run \
+        sh -c 'wineboot && winetricks -q vcrun2019; wineserver -w'
 
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
