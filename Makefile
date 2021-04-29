@@ -3,45 +3,145 @@
 ### Plain Images
 .PHONY: build
 build:
-	docker build --target ubuntu-base -t aoirint/wine:latest .
+	docker build --target ubuntu-base \
+		-t aoirint/wine:latest \
+		.
 
 .PHONY: build-ubuntu
 build-ubuntu:
-	docker build --target ubuntu-base -t aoirint/wine:ubuntu .
+	docker build --target ubuntu-base \
+		-t aoirint/wine:ubuntu \
+		.
+
+.PHONY: build-ubuntu-win32
+build-ubuntu-win32:
+	docker build --target ubuntu-base \
+		-t aoirint/wine:ubuntu-win32 \
+		--build-arg WINEARCH=win32 \
+		.
 
 .PHONY: build-nvidia
 build-nvidia:
-	docker build --target ubuntu-base -t aoirint/wine:nvidia --build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 .
+	docker build --target ubuntu-base \
+		-t aoirint/wine:nvidia \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
+		.
+
+.PHONY: build-nvidia-win32
+build-nvidia-win32:
+	docker build --target ubuntu-base \
+		-t aoirint/wine:nvidia-win32 \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
+		--build-arg WINEARCH=win32 \
+		.
 
 ### Python Images
 .PHONY: build-ubuntu-py38
 build-ubuntu-py38:
-	docker build --target python -t aoirint/wine:ubuntu-py38 --build-arg PYTHON_VERSION=3.8.9 .
+	docker build --target python \
+		-t aoirint/wine:ubuntu-py38 \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		.
+
+.PHONY: build-ubuntu-win32-py38
+build-ubuntu-win32-py38:
+	docker build --target python \
+		-t aoirint/wine:ubuntu-win32-py38 \
+		--build-arg WINEARCH=win32 \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		--build-arg PYTHON_ARCH= \
+		.
 
 .PHONY: build-nvidia-py38
 build-nvidia-py38:
-	docker build --target python -t aoirint/wine:nvidia-py38 --build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 --build-arg PYTHON_VERSION=3.8.9 .
+	docker build --target python \
+		-t aoirint/wine:nvidia-py38 \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		.
+
+.PHONY: build-nvidia-win32-py38
+build-nvidia-win32-py38:
+	docker build --target python \
+		-t aoirint/wine:nvidia-win32-py38 \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04
+		--build-arg WINEARCH=win32 \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		--build-arg PYTHON_ARCH= \
+		.
 
 
 ## Development branch
 .PHONY: build-ubuntu-devel
 build-ubuntu-devel:
-	docker build --target ubuntu-base -t aoirint/wine:ubuntu-devel --build-arg WINE_BRANCH=devel .
+	docker build --target ubuntu-base \
+		-t aoirint/wine:ubuntu-devel \
+		--build-arg WINE_BRANCH=devel \
+		.
+
+.PHONY: build-ubuntu-devel-win32
+build-ubuntu-devel-win32:
+	docker build --target ubuntu-base \
+		-t aoirint/wine:ubuntu-devel-win32 \
+		--build-arg WINE_BRANCH=devel \
+		--build-arg WINEARCH=win32 \
+		.
 
 .PHONY: build-nvidia-devel
 build-nvidia-devel:
-	docker build --target ubuntu-base -t aoirint/wine:nvidia-devel --build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 --build-arg WINE_BRANCH=devel .
+	docker build --target ubuntu-base \
+		-t aoirint/wine:nvidia-devel \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
+		--build-arg WINE_BRANCH=devel \
+		.
+
+.PHONY: build-nvidia-devel-win32
+build-nvidia-devel-win32:
+	docker build --target ubuntu-base \
+		-t aoirint/wine:nvidia-devel-win32 \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
+		--build-arg WINE_BRANCH=devel \
+		--build-arg WINEARCH=win32 \
+		.
 
 ### Python Images
 .PHONY: build-ubuntu-devel-py38
 build-ubuntu-devel-py38:
-	docker build --target python -t aoirint/wine:ubuntu-devel-py38 --build-arg WINE_BRANCH=devel --build-arg PYTHON_VERSION=3.8.9 .
+	docker build --target python \
+		-t aoirint/wine:ubuntu-devel-py38 \
+		--build-arg WINE_BRANCH=devel \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		.
+
+.PHONY: build-ubuntu-devel-win32-py38
+build-ubuntu-devel-win32-py38:
+	docker build --target python \
+		-t aoirint/wine:ubuntu-devel-win32-py38 \
+		--build-arg WINE_BRANCH=devel \
+		--build-arg WINEARCH=win32 \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		--build-arg PYTHON_ARCH= \
+		.
 
 .PHONY: build-nvidia-devel-py38
 build-nvidia-devel-py38:
-	docker build --target python -t aoirint/wine:nvidia-devel-py38 --build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 --build-arg WINE_BRANCH=devel --build-arg PYTHON_VERSION=3.8.9 .
+	docker build --target python \
+		-t aoirint/wine:nvidia-devel-py38 \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
+		--build-arg WINE_BRANCH=devel \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		.
 
-
+.PHONY: build-nvidia-devel-win32-py38
+build-nvidia-devel-win32-py38:
+	docker build --target upython \
+		-t aoirint/wine:nvidia-devel-win32 \
+		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
+		--build-arg WINE_BRANCH=devel \
+		--build-arg WINEARCH=win32 \
+		--build-arg PYTHON_VERSION=3.8.9 \
+		--build-arg PYTHON_ARCH= \
+		.
 
 
 # Run Commands

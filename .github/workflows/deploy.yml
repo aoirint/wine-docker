@@ -51,6 +51,28 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu
 
+  deploy-ubuntu-win32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu-win32
+        if: success()
+        run: make build-ubuntu-win32
+
+      - name: Deploy :ubuntu-win32
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-win32
+
   deploy-nvidia:
     runs-on: ubuntu-latest
     steps:
@@ -72,6 +94,28 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:nvidia
+
+  deploy-nvidia-win32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :nvidia-win32
+        if: success()
+        run: make build-nvidia-win32
+
+      - name: Deploy :nvidia-win32
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-win32
 
 
   deploy-ubuntu-py38:
@@ -96,6 +140,28 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-py38
 
+  deploy-ubuntu-win32-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu-win32-py38
+        if: success()
+        run: make build-ubuntu-win32-py38
+
+      - name: Deploy :ubuntu-win32-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-win32-py38
+
   deploy-nvidia-py38:
     runs-on: ubuntu-latest
     steps:
@@ -117,6 +183,28 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:nvidia-py38
+
+  deploy-nvidia-win32-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :nvidia-win32-py38
+        if: success()
+        run: make build-nvidia-win32-py38
+
+      - name: Deploy :nvidia-win32-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-win32-py38
 
   # Development branch
   deploy-ubuntu-devel:
@@ -141,6 +229,28 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel
 
+  deploy-ubuntu-devel-win32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu-devel-win32
+        if: success()
+        run: make build-ubuntu-devel-win32
+
+      - name: Deploy :ubuntu-devel-win32
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel-win32
+
   deploy-nvidia-devel:
     runs-on: ubuntu-latest
     steps:
@@ -162,6 +272,28 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:nvidia-devel
+
+  deploy-nvidia-devel-win32:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :nvidia-devel-win32
+        if: success()
+        run: make build-nvidia-devel-win32
+
+      - name: Deploy :nvidia-devel-win32
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel-win32
 
 
   deploy-ubuntu-devel-py38:
@@ -186,6 +318,28 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel-py38
 
+  deploy-ubuntu-devel-win32-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :ubuntu-devel-win32-py38
+        if: success()
+        run: make build-ubuntu-devel-win32-py38
+
+      - name: Deploy :ubuntu-devel-win32-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel-win32-py38
+
   deploy-nvidia-devel-py38:
     runs-on: ubuntu-latest
     steps:
@@ -207,3 +361,25 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:nvidia-devel-py38
+
+  deploy-nvidia-devel-win32-py38:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.io
+
+      - name: Build :nvidia-devel-win32-py38
+        if: success()
+        run: make build-nvidia-devel-win32-py38
+
+      - name: Deploy :nvidia-devel-win32-py38
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel-win32-py38
