@@ -49,7 +49,7 @@ RUN gosu user winetricks \
         allfonts \
         fakejapanese \
         win10
-    
+
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
 
@@ -60,11 +60,12 @@ FROM ubuntu-base AS python
 ARG DEBIAN_FRONTEND=noninteractive
 ARG WINEARCH=win64
 ARG PYTHON_VERSION=3.8.9
+ARG PYTHON_ARCH=-amd64
 
-RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}-amd64.exe -O /tmp/install-python.exe && \
+
+RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}${PYTHON_ARCH}.exe -O /tmp/install-python.exe && \
     gosu user xvfb-run \
     sh -c 'wineboot && wine /tmp/install-python.exe /quiet PrependPath=1; wineserver -w' && \
     rm /tmp/install-python.exe
 
 CMD [ "wine", "python" ]
-
