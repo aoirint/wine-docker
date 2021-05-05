@@ -49,12 +49,11 @@ RUN gosu user winetricks \
         allfonts \
         fakejapanese \
         win10 \
-        dotnet472 \
         msxml6 \
         mfc40
 
 RUN gosu user xvfb-run \
-        sh -c 'wineboot && winetricks -q vcrun2019; wineserver -w'
+        sh -c 'wineboot && winetricks -q dotnet472 vcrun2019; wineserver -w'
 
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
