@@ -3,7 +3,10 @@ name: Push to Docker registry
 on:
   push:
     branches:
-      - master
+      - main
+  release:
+    types:
+      - created
 
 jobs:
   # Stable branch
@@ -229,6 +232,12 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel
 
+      - name: Deploy :ubuntu-devel-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel-${{ github.event.release.target_commitish }}
+
   deploy-ubuntu-devel-win32:
     runs-on: ubuntu-latest
     steps:
@@ -250,6 +259,12 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:ubuntu-devel-win32
+
+      - name: Deploy :ubuntu-devel-win32-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel-win32-${{ github.event.release.target_commitish }}
 
   deploy-nvidia-devel:
     runs-on: ubuntu-latest
@@ -273,6 +288,12 @@ jobs:
         with:
           args: push aoirint/wine:nvidia-devel
 
+      - name: Deploy :nvidia-devel-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel-${{ github.event.release.target_commitish }}
+
   deploy-nvidia-devel-win32:
     runs-on: ubuntu-latest
     steps:
@@ -294,6 +315,12 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:nvidia-devel-win32
+
+      - name: Deploy :nvidia-devel-win32-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel-win32-${{ github.event.release.target_commitish }}
 
 
   deploy-ubuntu-devel-py38:
@@ -318,6 +345,12 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel-py38
 
+      - name: Deploy :ubuntu-devel-py38-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel-py38-${{ github.event.release.target_commitish }}
+
   deploy-ubuntu-devel-win32-py38:
     runs-on: ubuntu-latest
     steps:
@@ -339,6 +372,12 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:ubuntu-devel-win32-py38
+
+      - name: Deploy :ubuntu-devel-win32-py38-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:ubuntu-devel-win32-py38-${{ github.event.release.target_commitish }}
 
   deploy-nvidia-devel-py38:
     runs-on: ubuntu-latest
@@ -362,6 +401,12 @@ jobs:
         with:
           args: push aoirint/wine:nvidia-devel-py38
 
+      - name: Deploy :nvidia-devel-py38-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel-py38-${{ github.event.release.target_commitish }}
+
   deploy-nvidia-devel-win32-py38:
     runs-on: ubuntu-latest
     steps:
@@ -383,3 +428,9 @@ jobs:
         uses: actions-hub/docker@master
         with:
           args: push aoirint/wine:nvidia-devel-win32-py38
+
+      - name: Deploy :nvidia-devel-win32-py38-${{ github.event.release.target_commitish }}
+        if: success() && ${{ github.event.release.target_commitish != '' }}
+        uses: actions-hub/docker@master
+        with:
+          args: push aoirint/wine:nvidia-devel-win32-py38-${{ github.event.release.target_commitish }}
