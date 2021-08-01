@@ -40,7 +40,8 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula selec
         fontconfig  \
         fonts-noto-cjk \
         ttf-mscorefonts-installer \
-        xvfb && \
+        xvfb \
+        winbind && \
     fc-cache -fv && \
     useradd -m user && \
     update-locale LANG=ja_JP.UTF-8
