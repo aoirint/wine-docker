@@ -41,7 +41,8 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula selec
         fonts-noto-cjk \
         ttf-mscorefonts-installer \
         xvfb \
-        winbind && \
+        winbind \
+        pulseaudio && \
     fc-cache -fv && \
     useradd -m user && \
     update-locale LANG=ja_JP.UTF-8
