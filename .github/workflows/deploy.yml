@@ -232,17 +232,17 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel
 
-      - name: Tag :ubuntu-devel as :ubuntu-devel-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :ubuntu-devel as :ubuntu-devel-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:ubuntu-devel aoirint/wine:ubuntu-devel-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:ubuntu-devel aoirint/wine:ubuntu-devel-${{ github.event.release.tag_name }}
 
-      - name: Deploy :ubuntu-devel-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :ubuntu-devel-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:ubuntu-devel-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:ubuntu-devel-${{ github.event.release.tag_name }}
 
   deploy-ubuntu-devel-win32:
     runs-on: ubuntu-latest
@@ -266,17 +266,17 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel-win32
 
-      - name: Tag :ubuntu-devel-win32 as :ubuntu-devel-win32-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :ubuntu-devel-win32 as :ubuntu-devel-win32-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:ubuntu-devel-win32 aoirint/wine:ubuntu-devel-win32-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:ubuntu-devel-win32 aoirint/wine:ubuntu-devel-win32-${{ github.event.release.tag_name }}
 
-      - name: Deploy :ubuntu-devel-win32-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :ubuntu-devel-win32-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:ubuntu-devel-win32-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:ubuntu-devel-win32-${{ github.event.release.tag_name }}
 
   deploy-nvidia-devel:
     runs-on: ubuntu-latest
@@ -300,17 +300,17 @@ jobs:
         with:
           args: push aoirint/wine:nvidia-devel
 
-      - name: Tag :nvidia-devel as :nvidia-devel-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :nvidia-devel as :nvidia-devel-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:nvidia-devel aoirint/wine:nvidia-devel-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:nvidia-devel aoirint/wine:nvidia-devel-${{ github.event.release.tag_name }}
 
-      - name: Deploy :nvidia-devel-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :nvidia-devel-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:nvidia-devel-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:nvidia-devel-${{ github.event.release.tag_name }}
 
   deploy-nvidia-devel-win32:
     runs-on: ubuntu-latest
@@ -334,17 +334,17 @@ jobs:
         with:
           args: push aoirint/wine:nvidia-devel-win32
 
-      - name: Tag :nvidia-devel as :nvidia-devel-win32-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :nvidia-devel as :nvidia-devel-win32-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:nvidia-devel-win32 aoirint/wine:nvidia-devel-win32-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:nvidia-devel-win32 aoirint/wine:nvidia-devel-win32-${{ github.event.release.tag_name }}
 
-      - name: Deploy :nvidia-devel-win32-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :nvidia-devel-win32-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:nvidia-devel-win32-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:nvidia-devel-win32-${{ github.event.release.tag_name }}
 
 
   deploy-ubuntu-devel-py38:
@@ -369,17 +369,17 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel-py38
 
-      - name: Tag :nvidia-devel as :ubuntu-devel-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :nvidia-devel as :ubuntu-devel-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:ubuntu-devel-py38 aoirint/wine:ubuntu-devel-py38-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:ubuntu-devel-py38 aoirint/wine:ubuntu-devel-py38-${{ github.event.release.tag_name }}
 
-      - name: Deploy :ubuntu-devel-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :ubuntu-devel-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:ubuntu-devel-py38-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:ubuntu-devel-py38-${{ github.event.release.tag_name }}
 
   deploy-ubuntu-devel-win32-py38:
     runs-on: ubuntu-latest
@@ -403,17 +403,17 @@ jobs:
         with:
           args: push aoirint/wine:ubuntu-devel-win32-py38
 
-      - name: Tag :ubuntu-devel-win32-py38 as :ubuntu-devel-win32-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :ubuntu-devel-win32-py38 as :ubuntu-devel-win32-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:ubuntu-devel-win32-py38 aoirint/wine:ubuntu-devel-win32-py38-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:ubuntu-devel-win32-py38 aoirint/wine:ubuntu-devel-win32-py38-${{ github.event.release.tag_name }}
 
-      - name: Deploy :ubuntu-devel-win32-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :ubuntu-devel-win32-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:ubuntu-devel-win32-py38-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:ubuntu-devel-win32-py38-${{ github.event.release.tag_name }}
 
   deploy-nvidia-devel-py38:
     runs-on: ubuntu-latest
@@ -437,17 +437,17 @@ jobs:
         with:
           args: push aoirint/wine:nvidia-devel-py38
 
-      - name: Tag :nvidia-devel-py38 as :nvidia-devel-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :nvidia-devel-py38 as :nvidia-devel-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:nvidia-devel-py38 aoirint/wine:nvidia-devel-py38-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:nvidia-devel-py38 aoirint/wine:nvidia-devel-py38-${{ github.event.release.tag_name }}
 
-      - name: Deploy :nvidia-devel-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :nvidia-devel-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:nvidia-devel-py38-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:nvidia-devel-py38-${{ github.event.release.tag_name }}
 
   deploy-nvidia-devel-win32-py38:
     runs-on: ubuntu-latest
@@ -471,14 +471,14 @@ jobs:
         with:
           args: push aoirint/wine:nvidia-devel-win32-py38
 
-      - name: Tag :nvidia-devel-win32-py38 as :nvidia-devel-win32-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Tag :nvidia-devel-win32-py38 as :nvidia-devel-win32-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: image tag aoirint/wine:nvidia-devel-win32-py38 aoirint/wine:nvidia-devel-win32-py38-${{ github.event.release.target_commitish }}
+          args: image tag aoirint/wine:nvidia-devel-win32-py38 aoirint/wine:nvidia-devel-win32-py38-${{ github.event.release.tag_name }}
 
-      - name: Deploy :nvidia-devel-win32-py38-${{ github.event.release.target_commitish }}
-        if: success() && ${{ github.event.release.target_commitish != '' }}
+      - name: Deploy :nvidia-devel-win32-py38-${{ github.event.release.tag_name }}
+        if: success() && ${{ github.event.release.tag_name != '' }}
         uses: actions-hub/docker@master
         with:
-          args: push aoirint/wine:nvidia-devel-win32-py38-${{ github.event.release.target_commitish }}
+          args: push aoirint/wine:nvidia-devel-win32-py38-${{ github.event.release.tag_name }}
