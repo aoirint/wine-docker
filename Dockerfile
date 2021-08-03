@@ -30,17 +30,14 @@ RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/wine
 
 RUN useradd -m user
 
-# Wine dependencies
+# Additional dependencies
 RUN apt-get update && apt-get install -y \
         gosu \
         libvulkan1 \
         binutils \
         cabextract \
         unzip \
-        lsof
-
-# Additional dependencies
-RUN apt-get update && apt-get install -y \
+        lsof \
         xvfb \
         winbind \
         pulseaudio
