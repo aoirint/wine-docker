@@ -173,8 +173,8 @@ build-nvidia-devel-py38:
 .PHONY: build-nvidia-devel-win32-py38
 build-nvidia-devel-win32-py38:
 	docker buildx build --target python \
-		-t aoirint/wine:nvidia-devel-win32 \
-		--cache-from aoirint/wine:nvidia-devel-win32 \
+		-t aoirint/wine:nvidia-devel-win32-py38 \
+		--cache-from aoirint/wine:nvidia-devel-win32-py38 \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
 		--build-arg WINE_BRANCH=devel \
