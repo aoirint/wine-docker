@@ -28,24 +28,33 @@ RUN apt-get update && apt-get install -y software-properties-common && \
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -P /usr/local/bin/ && \
     chmod +x /usr/local/bin/winetricks
 
-RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \
-    apt-get update && apt-get install -y \
+RUN useradd -m user
+
+# Wine dependencies
+RUN apt-get update && apt-get install -y \
         gosu \
         libvulkan1 \
         binutils \
         cabextract \
         unzip \
-        lsof \
+        lsof
+
+# Additional dependencies
+RUN apt-get update && apt-get install -y \
+        xvfb \
+        winbind \
+        pulseaudio
+
+# Fonts
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \
+    apt-get update && apt-get install -y \
         language-pack-ja \
         fontconfig  \
         fonts-noto-cjk \
-        ttf-mscorefonts-installer \
-        xvfb \
-        winbind \
-        pulseaudio && \
-    fc-cache -fv && \
-    useradd -m user && \
-    update-locale LANG=ja_JP.UTF-8
+        ttf-mscorefonts-installer && \
+    fc-cache -fv
+
+RUN update-locale LANG=ja_JP.UTF-8
 
 RUN gosu user winetricks allfonts
 RUN gosu user winetricks fakejapanese
