@@ -71,8 +71,10 @@ RUN gosu user winetricks win10
 RUN gosu user winetricks msxml6
 RUN gosu user winetricks mfc40
 
-RUN gosu user xvfb-run sh -c 'wineboot && winetricks -q dotnet472; wineserver -w'
-RUN gosu user xvfb-run sh -c 'wineboot && winetricks -q vcrun2019; wineserver -w'
+RUN gosu user xvfb-run sh -c 'wineboot && winetricks -q dotnet472; wineserver -w' && \
+  sleep 10
+RUN gosu user xvfb-run sh -c 'wineboot && winetricks -q vcrun2019; wineserver -w' && \
+  sleep 10
 
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
