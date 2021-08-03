@@ -8,6 +8,9 @@ ARG WINEARCH=win64
 ARG FAUDIO_X86=https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/i386/libfaudio0_19.07-0~bionic_i386.deb
 ARG FAUDIO_X64=https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/amd64/libfaudio0_19.07-0~bionic_amd64.deb
 
+ARG GECKO_ARCH=x86_64
+ARG MONO_ARCH=x86
+
 # Install FAudio
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
@@ -34,14 +37,14 @@ RUN apt-get update && apt-get install -y \
         gosu
 
 # Install Wine Gecko
-RUN wget https://dl.winehq.org/wine/wine-gecko/2.47.2/wine-gecko-2.47.2-x86_64.msi -O /tmp/wine-gecko.msi && \
+RUN wget https://dl.winehq.org/wine/wine-gecko/2.47.2/wine-gecko-2.47.2-${GECKO_ARCH}.msi -O /tmp/wine-gecko.msi && \
     gosu user wine msiexec /i /tmp/wine-gecko.msi && \
     rm /tmp/wine-gecko.msi
 
 # Install Wine Mono
-RUN wget https://dl.winehq.org/wine/wine-mono/6.3.0/wine-mono-6.3.0-x86.msi -O /tmp/wine-mono-x86.msi && \
-    gosu user wine msiexec /i /tmp/wine-mono-x86.msi && \
-    rm /tmp/wine-mono-x86.msi
+RUN wget https://dl.winehq.org/wine/wine-mono/6.3.0/wine-mono-6.3.0-${MONO_ARCH}.msi -O /tmp/wine-mono.msi && \
+    gosu user wine msiexec /i /tmp/wine-mono.msi && \
+    rm /tmp/wine-mono.msi
 
 # Additional dependencies
 RUN apt-get update && apt-get install -y \

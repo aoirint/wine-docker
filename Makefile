@@ -23,6 +23,7 @@ build-ubuntu-win32:
 		--cache-from aoirint/wine:ubuntu-win32 \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		.
 
 .PHONY: build-nvidia
@@ -42,6 +43,7 @@ build-nvidia-win32:
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		.
 
 ### Python Images
@@ -61,6 +63,7 @@ build-ubuntu-win32-py38:
 		--cache-from aoirint/wine:ubuntu-win32-py38 \
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		--build-arg PYTHON_VERSION=3.8.9 \
 		--build-arg PYTHON_ARCH= \
 		.
@@ -83,6 +86,7 @@ build-nvidia-win32-py38:
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		--build-arg PYTHON_VERSION=3.8.9 \
 		--build-arg PYTHON_ARCH= \
 		.
@@ -106,6 +110,7 @@ build-ubuntu-devel-win32:
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--build-arg WINE_BRANCH=devel \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		.
 
 .PHONY: build-nvidia-devel
@@ -127,6 +132,7 @@ build-nvidia-devel-win32:
 		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
 		--build-arg WINE_BRANCH=devel \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		.
 
 ### Python Images
@@ -148,6 +154,7 @@ build-ubuntu-devel-win32-py38:
 		--build-arg BUILDKIT_INLINE_CACHE=1 \
 		--build-arg WINE_BRANCH=devel \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		--build-arg PYTHON_VERSION=3.8.9 \
 		--build-arg PYTHON_ARCH= \
 		.
@@ -172,6 +179,7 @@ build-nvidia-devel-win32-py38:
 		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu18.04 \
 		--build-arg WINE_BRANCH=devel \
 		--build-arg WINEARCH=win32 \
+		--build-arg GECKO_ARCH=x86 \
 		--build-arg PYTHON_VERSION=3.8.9 \
 		--build-arg PYTHON_ARCH= \
 		.
