@@ -42,9 +42,9 @@ RUN wget https://dl.winehq.org/wine/wine-gecko/2.47.2/wine-gecko-2.47.2-${GECKO_
     rm /tmp/wine-gecko.msi
 
 # Install Wine Mono
-RUN wget https://dl.winehq.org/wine/wine-mono/6.3.0/wine-mono-6.3.0-${MONO_ARCH}.msi -O /tmp/wine-mono.msi && \
-    gosu user wine msiexec /i /tmp/wine-mono.msi && \
-    rm /tmp/wine-mono.msi
+# RUN wget https://dl.winehq.org/wine/wine-mono/6.3.0/wine-mono-6.3.0-${MONO_ARCH}.msi -O /tmp/wine-mono.msi && \
+#     gosu user wine msiexec /i /tmp/wine-mono.msi && \
+#     rm /tmp/wine-mono.msi
 
 # Additional dependencies
 RUN apt-get update && apt-get install -y \
