@@ -29,7 +29,7 @@ RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/wine
     chmod +x /usr/local/bin/winetricks
 
 RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \
-        apt-get update && apt-get install -y \
+    apt-get update && apt-get install -y \
         gosu \
         libvulkan1 \
         binutils \
@@ -47,15 +47,14 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula selec
     useradd -m user && \
     update-locale LANG=ja_JP.UTF-8
 
-RUN gosu user winetricks \
-        allfonts \
-        fakejapanese \
-        win10 \
-        msxml6 \
-        mfc40
+RUN gosu user winetricks allfonts
+RUN gosu user winetricks fakejapanese
+RUN gosu user winetricks win10
+RUN gosu user winetricks msxml6
+RUN gosu user winetricks mfc40
 
-RUN gosu user xvfb-run \
-        sh -c 'wineboot && winetricks -q dotnet472 vcrun2019; wineserver -w'
+RUN gosu user xvfb-run sh -c 'wineboot && winetricks -q dotnet472; wineserver -w'
+RUN gosu user xvfb-run sh -c 'wineboot && winetricks -q vcrun2019; wineserver -w'
 
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
@@ -72,7 +71,7 @@ ARG PYTHON_ARCH=-amd64
 
 RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/python-${PYTHON_VERSION}${PYTHON_ARCH}.exe -O /tmp/install-python.exe && \
     gosu user xvfb-run \
-    sh -c 'wineboot && wine /tmp/install-python.exe /quiet PrependPath=1; wineserver -w' && \
+        sh -c 'wineboot && wine /tmp/install-python.exe /quiet PrependPath=1; wineserver -w' && \
     rm /tmp/install-python.exe
 
 CMD [ "wine", "python" ]
