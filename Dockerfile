@@ -79,6 +79,9 @@ RUN wget https://dl.winehq.org/wine/wine-mono/6.3.0/wine-mono-6.3.0-${MONO_ARCH}
     gosu user wine msiexec /i /tmp/wine-mono.msi && \
     rm /tmp/wine-mono.msi
 
+RUN gosu user winetricks ole32
+RUN gosu user winetricks oleaut32
+
 ENTRYPOINT [ "gosu", "user" ]
 CMD [ "wine", "notepad" ]
 
